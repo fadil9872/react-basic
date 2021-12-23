@@ -1,0 +1,36 @@
+<!DOCTYPE html>
+<head>
+    <title>Belajar React</title>
+    <link rel="stylesheet" href="https://fonts.googleapis.com/css?family=Sofia">
+    <style>
+
+        body {
+            margin: 10%;
+        }
+    </style>
+</head>
+<body>
+    <header>
+        <img src="indo.jpg" width="350">
+        <p>A Javascript liblary for building user interface</p>
+    </header>
+
+    <div id="container">
+
+    </div>
+    
+    <footer>
+        <p>&copy; 2021 Kelas ku</p>
+    </footer>
+
+<script src="https://unpkg.com/react@17/umd/react.development.js" crossorigin></script>
+<script src="https://unpkg.com/react-dom@17/umd/react-dom.development.js" crossorigin></script>
+<script src="https://unpkg.com/babel-standalone@6/babel.min.js"></script>
+<script type="text/babel">      // merender tulisan html di javascript
+    const elemen = <h1> Hello World </h1>
+    ReactDOM.render(elemen, document.getElementById('container'))
+        
+</script>
+
+</body>
+</html>
