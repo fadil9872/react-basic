@@ -3,9 +3,6 @@
   "version": "1.0.0",
   "description": "",
   "main": "index.js",
-  "scripts": {
-    "test": "echo \"Error: no test specified\" && exit 1"
-  },
   "repository": {
     "type": "git",
     "url": "git+https://github.com/fadil9872/react-basic.git"
@@ -16,5 +13,17 @@
   "bugs": {
     "url": "https://github.com/fadil9872/react-basic/issues"
   },
-  "homepage": "https://github.com/fadil9872/react-basic#readme"
+  "homepage": "https://github.com/fadil9872/react-basic#readme",
+  "dependencies": {
+    "@babel/cli": "^7.16.0",
+    "@babel/core": "^7.16.5",
+    "@babel/preset-react": "^7.16.5",
+    "lite-server": "^2.6.1"
+  },
+  "scripts": {
+    "build": "babel src --out-dir public -w",
+    "serve": "lite-server --baseDir public",
+    "start": "npm run-script build & npm run-script serve"
+
+  }
 }
