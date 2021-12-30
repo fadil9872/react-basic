@@ -1,19 +1,15 @@
 const root = document.querySelector('#root');
 
 function App() {
-    const [count, setCount] = React.useState(1);
-    
+    const fruits = [{id: 1, item: "apple"}, {id: 5, item: "grape"}, {id: 3, item: "jagung"}, {id: 4, item: "orange"}];
+
     return (
-        <>
-            <button onClick={function() {
-                setCount(count - 1)
-            }}>-</button>
-            <span>{count}</span>
-            <button onClick={function() {
-                setCount(count + 1)
-            }}>+</button>
-        </>
+        <ul>
+            {fruits.map(function(fruit) {
+                return <li key={fruit.id}>{fruit.id}</li>
+            })}
+        </ul>
     )
 }
 
-ReactDOM.render(<App />, root);
+    ReactDOM.render(<App />, root);

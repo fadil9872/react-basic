@@ -1,16 +1,24 @@
 const root = document.querySelector('#root');
 
 function App() {
-  const [count, setCount] = React.useState(1);
-  return /*#__PURE__*/React.createElement(React.Fragment, null, /*#__PURE__*/React.createElement("button", {
-    onClick: function () {
-      setCount(count - 1);
-    }
-  }, "-"), /*#__PURE__*/React.createElement("span", null, count), /*#__PURE__*/React.createElement("button", {
-    onClick: function () {
-      setCount(count + 1);
-    }
-  }, "+"));
+  const fruits = [{
+    id: 1,
+    item: "apple"
+  }, {
+    id: 5,
+    item: "grape"
+  }, {
+    id: 3,
+    item: "jagung"
+  }, {
+    id: 4,
+    item: "orange"
+  }];
+  return /*#__PURE__*/React.createElement("ul", null, fruits.map(function (fruit) {
+    return /*#__PURE__*/React.createElement("li", {
+      key: fruit.id
+    }, fruit.id);
+  }));
 }
 
 ReactDOM.render( /*#__PURE__*/React.createElement(App, null), root);
