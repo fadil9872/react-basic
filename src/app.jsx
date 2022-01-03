@@ -1,23 +1,42 @@
 const root = document.querySelector('#root');
 
 function App() {
+    const [activity, setActivity] = React.useState("");
+    const [todos, setTodos] = React.useState([]);
 
-    const namaRef = React.useRef(null);
 
-    function ketikaSubmit(event) {
-        event.preventDefault();         // agar tidak mereload
-        console.log("nama: ", namaRef.current.value); 
+    function addTodoHandler(event) {
+        event.preventDefault();
+        setTodos([...todos, activity]);
+        setActivity('');
     }
-
+    
     return (
-        <form onSubmit={ketikaSubmit} action="">
-            <div>
-                <label htmlFor="">Name</label>
-                <input type="text" name="nama" ref={namaRef} value={namaRef.current.value}/>
-            </div>
-            <button type="submit">Kirim</button>
-        </form>
-    )
-}
+        <>
+            <h1>Todo List</h1>
+            <form onSubmit={addTodoHandler}>
+                <input 
+                    type="text" 
+                    placeholder="Silahkan Masukan" 
+                    value={activity}
+                    onChange={function(event) {
+                    setActivity(event.target.value)
+                    
+                }} />
+                
+                <button type="submit">Tambah</button>
+        
+            </form>
+                
+            <ul>
+                {todos.map(function(todo) {
+                    return <li key={todo}>{todo}</li>
+                })}
+            </ul>
+        </>
 
+    )
+
+    
+}
     ReactDOM.render(<App />, root);

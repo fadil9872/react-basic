@@ -1,27 +1,31 @@
 const root = document.querySelector('#root');
 
 function App() {
-  const namaRef = React.useRef(null);
+  const [activity, setActivity] = React.useState("");
+  const [todos, setTodos] = React.useState([]);
 
-  function ketikaSubmit(event) {
-    event.preventDefault(); // agar tidak mereload
-
-    console.log("nama: ", namaRef.current.value);
+  function addTodoHandler(event) {
+    event.preventDefault();
+    setTodos([...todos, activity]);
+    setActivity('');
   }
 
-  return /*#__PURE__*/React.createElement("form", {
-    onSubmit: ketikaSubmit,
-    action: ""
-  }, /*#__PURE__*/React.createElement("div", null, /*#__PURE__*/React.createElement("label", {
-    htmlFor: ""
-  }, "Name"), /*#__PURE__*/React.createElement("input", {
+  return /*#__PURE__*/React.createElement(React.Fragment, null, /*#__PURE__*/React.createElement("h1", null, "Todo List"), /*#__PURE__*/React.createElement("form", {
+    onSubmit: addTodoHandler
+  }, /*#__PURE__*/React.createElement("input", {
     type: "text",
-    name: "nama",
-    ref: namaRef,
-    value: namaRef.current.value
-  })), /*#__PURE__*/React.createElement("button", {
+    placeholder: "Silahkan Masukan",
+    value: activity,
+    onChange: function (event) {
+      setActivity(event.target.value);
+    }
+  }), /*#__PURE__*/React.createElement("button", {
     type: "submit"
-  }, "Kirim"));
+  }, "Tambah")), /*#__PURE__*/React.createElement("ul", null, todos.map(function (todo) {
+    return /*#__PURE__*/React.createElement("li", {
+      key: todo
+    }, todo);
+  })));
 }
 
 ReactDOM.render( /*#__PURE__*/React.createElement(App, null), root);
