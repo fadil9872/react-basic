@@ -4,6 +4,7 @@ function App() {
     const [activity, setActivity] = React.useState("");
     const [todos, setTodos] = React.useState([]);
     const [edit, setEdit] = React.useState({});
+    const [message, setMessage] = React.useState("")
 
     function generateId() {
         return Date.now();
@@ -12,9 +13,15 @@ function App() {
     function saveTodoHandler(event) {
         event.preventDefault();
 
+        if (!activity) {
+            return setMessage("nama actifitas tidak boleh kosong")
+        }
+
+        setActivity('');
+
         if (edit.id) {
             const updatedTodo = {
-                id: edit.id,
+                ...edit,
                 activity
             };
 
@@ -23,7 +30,6 @@ function App() {
             });
 
             const updatedTodos = [...todos];
-
             updatedTodos[editTodoIndex] = updatedTodo;
 
             setTodos(updatedTodos);
@@ -34,8 +40,9 @@ function App() {
         setTodos([...todos, {
             id: generateId(),
             activity,
+            done: false
         }]);
-        setActivity('');
+        setMessage('');
     }
 
     function removeTodoHandler(todoId) {
@@ -55,14 +62,32 @@ function App() {
         setEdit(todo);
     }
 
-    function cancelEditHandler(event) {
+    function cancelEditHandler() {
         setEdit({});
         setActivity("");
+    }
+
+    function doneTodoHandler(todo) {
+        const updatedTodo = {
+            ...todo,
+            done: todo.done ? false : true
+        }
+
+        const editTodoIndex = todos.findIndex(function(currentTodo) {
+            return currentTodo.id == todo.id
+        });
+
+        const updatedTodos = [...todos];
+        updatedTodos[editTodoIndex] = updatedTodo;
+
+        console.log(updatedTodos);
+        setTodos(updatedTodos);
     }
     
     return (
         <>
             <h1>Todo List</h1>
+            {message && <div className="" style={{color: "red"}}>{message}</div>}
             <form onSubmit={saveTodoHandler}>
                 <input 
                     type="text" 
@@ -77,18 +102,32 @@ function App() {
                 {edit.id && <button onClick={cancelEditHandler}>Batal Edit</button>}
         
             </form>
-                
-            <ul>
-                {todos.map(function(todo) {
-                    return (
-                        <li key={todo.id}>{todo.activity}
-                            <button onClick={editTodoHandler.bind(this, todo)}>Edit</button>
-                            <button onClick={removeTodoHandler.bind(this, todo.id)}>Hapus</button>
-                        </li>
+            
+            {todos.length > 0 ? (
+                <ul>
+                    {todos.map(function(todo) {
+                        return (
+                            
+                            <li key={todo.id}>
+                                <input 
+                                    type="checkbox"
+                                    onChange={doneTodoHandler.bind(this, todo)}
+                                    checked={todo.done} 
+                                />
+                                {todo.activity}
+                                ({todo.done ? "Selesai" : "Belum Selesai"})
+                                <button onClick={editTodoHandler.bind(this, todo)}>Edit</button>
+                                <button onClick={removeTodoHandler.bind(this, todo.id)}>Hapus</button>
+                            </li>
 
-                    ) 
-                })}
-            </ul>
+                        ) 
+                    })}
+                </ul>
+            ) : ( 
+                <p>
+                    <i>Tidak ada data</i>
+                </p>
+            )}
         </>
 
     )
